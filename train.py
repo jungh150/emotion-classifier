@@ -132,7 +132,7 @@ def main():
     os.makedirs(save_dir, exist_ok=True)
     save_path = os.path.join(save_dir, f'{model_name}_classifier.pth')
     torch.save(model.state_dict(), save_path)
-    print("Model saved to {save_path}")
+    print(f"Model saved to {save_path}")
 
 if __name__ == "__main__":
     main()

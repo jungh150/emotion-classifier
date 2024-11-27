@@ -38,8 +38,7 @@ class ConvLSTMEmotionClassifier(nn.Module):
         self.fc = nn.Sequential(
             nn.Linear(128, 128),
             nn.ReLU(),
-            nn.Linear(128, num_classes),
-            nn.Softmax(dim=1)
+            nn.Linear(128, num_classes)
         )
     
     def forward(self, x):
