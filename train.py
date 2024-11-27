@@ -103,14 +103,14 @@ def main():
         "cnn": CNNEmotionClassifier,
         "lstm": LSTMEmotionClassifier,
     }
-    model_name = "convlstm"  # 여기서 사용할 모델을 선택
+    model_name = "cnn"  # 여기서 사용할 모델을 선택
     model_class = model_choices[model_name]
     
     # 모델 초기화
     input_shape = (X_train_tensor.size(1), X_train_tensor.size(2))
     num_classes = len(np.unique(y))
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model = ConvLSTMEmotionClassifier(input_shape, num_classes).to(device)
+    model = model_class(input_shape, num_classes).to(device)
     
     # 학습 설정
     config = {
