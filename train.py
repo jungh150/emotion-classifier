@@ -128,7 +128,7 @@ def main():
     print(classification_report(all_labels, all_preds, target_names=[str(i) for i in range(num_classes)]))
     
     # 모델 저장
-    save_dir = 'model'
+    save_dir = 'models'
     os.makedirs(save_dir, exist_ok=True)
     save_path = os.path.join(save_dir, f'{model_name}_classifier.pth')
     torch.save(model.state_dict(), save_path)
