@@ -83,7 +83,7 @@ def train_model(model, X_train, y_train, X_val, y_val, config):
         
         # 검증 정확도 출력
         val_accuracy = total_correct / total_samples
-        print(f"Validation Loss: {val_loss:.4f}, Validation Accuracy: {val_accuracy:.4f}")
+        print(f"Validation Loss: {val_loss / (X_val.size(0) // batch_size):.4f}, Validation Accuracy: {val_accuracy:.4f}")
     
     return all_preds, all_labels
 
