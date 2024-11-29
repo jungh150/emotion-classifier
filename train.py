@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
+import torch.nn.functional as F
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from utils import load_data, preprocess_data
@@ -10,6 +11,11 @@ import os
 from emotion_classifier_convlstm import ConvLSTMEmotionClassifier
 from emotion_classifier_cnn import CNNEmotionClassifier
 from emotion_classifier_lstm import LSTMEmotionClassifier
+from emotion_classifier_transformer import TransformerEmotionClassifier
+from emotion_classifier_wav2 import Wav2Vec2EmotionClassifier
+from emotion_classifier_gru import GRUEmotionClassifier
+from emotion_classifier_rnn import RNNEmotionClassifier
+from emotion_classifier_crnn import CRNNEmotionClassifier
 
 def train_model(model, X_train, y_train, X_val, y_val, config):
     # 학습 설정
@@ -97,20 +103,36 @@ def main():
     X_val_tensor = torch.tensor(X_val, dtype=torch.float32).permute(0, 2, 1)
     y_val_tensor = torch.tensor(y_val, dtype=torch.long)
 
+    # 데이터를 Tensor 형태로 변환
+    # Wav2Vec2는 (batch_size, time_steps) 형태의 raw waveform 데이터를 필요로 함
+    # X_train_tensor = torch.tensor(X_train, dtype=torch.float32).squeeze(-1)  # (batch, time_steps)
+    # y_train_tensor = torch.tensor(y_train, dtype=torch.long)
+    # X_val_tensor = torch.tensor(X_val, dtype=torch.float32).squeeze(-1)  # (batch, time_steps)
+    # y_val_tensor = torch.tensor(y_val, dtype=torch.long)
+
     # 모델 선택 (여러 모델 비교 가능)
     model_choices = {
         "convlstm": ConvLSTMEmotionClassifier,
         "cnn": CNNEmotionClassifier,
         "lstm": LSTMEmotionClassifier,
+        "trans": TransformerEmotionClassifier,
+        "wav2": Wav2Vec2EmotionClassifier,
+        "gru": GRUEmotionClassifier,
+        "rnn": RNNEmotionClassifier,
+        "crnn": CRNNEmotionClassifier
     }
     model_name = "cnn"  # 여기서 사용할 모델을 선택
     model_class = model_choices[model_name]
     
     # 모델 초기화
-    input_shape = (X_train_tensor.size(1), X_train_tensor.size(2))
     num_classes = len(np.unique(y))
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model = model_class(input_shape, num_classes).to(device)
+    
+    if model_name == "wav2":
+        model = model_class(num_classes).to(device)  # Wav2Vec2는 input_shape가 필요 없음
+    else:
+        input_shape = (X_train_tensor.size(1), X_train_tensor.size(2))
+        model = model_class(input_shape, num_classes).to(device)
     
     # 학습 설정
     config = {
