@@ -55,7 +55,7 @@ def train_model(model, X_train, y_train, X_val, y_val, config):
         
         # 학습 정확도 출력
         train_accuracy = total_correct / total_samples
-        print(f"Epoch [{epoch+1}/{num_epochs}], Loss: {running_loss:.4f}, Accuracy: {train_accuracy:.4f}")
+        print(f"Epoch [{epoch+1}/{num_epochs}], Loss: {running_loss / (X_train.size(0) // batch_size):.4f}, Accuracy: {train_accuracy:.4f}")
         
         # 검증 단계
         model.eval()
