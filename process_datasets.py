@@ -15,6 +15,7 @@ emotion_mapping = {
 ravdess_path = "datasets/RAVDESS/"
 tess_path = "datasets/TESS/"
 cremad_path = "datasets/CREMA-D/"
+savee_path = "datasets/SAVEE/"
 
 # 결과 저장 리스트
 result = []
@@ -69,6 +70,26 @@ for root, _, files in os.walk(cremad_path):
                     result.append((os.path.join(root, file), emotion_mapping["fear"]))
                 elif emotion == "dis":
                     result.append((os.path.join(root, file), emotion_mapping["disgust"]))
+
+# SAVEE 처리
+for root, _, files in os.walk(savee_path):
+    for file in files:
+        if file.endswith(".wav"):
+            # 파일 이름에서 감정 약어 추출 (예: "JK_a01.wav")
+            emotion_code = file.split("_")[1][0:2]  # 감정 코드가 두 글자일 가능성 포함
+            if emotion_code == "n":  # neutral
+                result.append((os.path.join(root, file), emotion_mapping["neutral"]))
+            elif emotion_code == "h":  # happy
+                result.append((os.path.join(root, file), emotion_mapping["happy"]))
+            elif emotion_code == "sa":  # sad
+                result.append((os.path.join(root, file), emotion_mapping["sad"]))
+            elif emotion_code == "a":  # angry
+                result.append((os.path.join(root, file), emotion_mapping["angry"]))
+            elif emotion_code == "f":  # fear
+                result.append((os.path.join(root, file), emotion_mapping["fear"]))
+            elif emotion_code == "d":  # disgust
+                result.append((os.path.join(root, file), emotion_mapping["disgust"]))
+            # "su" (surprise)는 제외
 
 # 결과를 DataFrame으로 변환
 df = pd.DataFrame(result, columns=["file_path", "emotion_label"])
