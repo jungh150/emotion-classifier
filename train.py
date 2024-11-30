@@ -123,9 +123,9 @@ def main():
     
     # 학습 설정
     config = {
-        'num_epochs': 120,
-        'batch_size': 64,
-        'learning_rate': 0.0001,
+        'num_epochs': 60,
+        'batch_size': 32,
+        'learning_rate': 0.001,
         'device': device
     }
     
