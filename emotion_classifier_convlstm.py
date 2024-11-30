@@ -7,7 +7,7 @@ class ConvLSTMEmotionClassifier(nn.Module):
         
         # Conv1D 블록 1
         self.conv1 = nn.Sequential(
-            nn.Conv1d(features, 1024, kernel_size=5, stride=1, padding=2),
+            nn.Conv1d(features, 1024, kernel_size=7, stride=1, padding=2),
             nn.ReLU(),
             nn.MaxPool1d(kernel_size=2, stride=2),
             nn.BatchNorm1d(1024),
@@ -15,7 +15,7 @@ class ConvLSTMEmotionClassifier(nn.Module):
         )
         # Conv1D 블록 2
         self.conv2 = nn.Sequential(
-            nn.Conv1d(1024, 512, kernel_size=5, stride=1, padding=2),
+            nn.Conv1d(1024, 512, kernel_size=7, stride=1, padding=2),
             nn.ReLU(),
             nn.MaxPool1d(kernel_size=2, stride=2),
             nn.BatchNorm1d(512),
@@ -23,7 +23,7 @@ class ConvLSTMEmotionClassifier(nn.Module):
         )
         # Conv1D 블록 3
         self.conv3 = nn.Sequential(
-            nn.Conv1d(512, 256, kernel_size=5, stride=1, padding=2),
+            nn.Conv1d(512, 256, kernel_size=7, stride=1, padding=2),
             nn.ReLU(),
             nn.MaxPool1d(kernel_size=2, stride=2),
             nn.BatchNorm1d(256),
