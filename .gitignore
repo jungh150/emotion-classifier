@@ -20,6 +20,9 @@ models/
 # 출력 파일
 outputs/
 
+# 결과 그래프 파일
+results/
+
 # Jupyter Notebook 체크포인트
 .ipynb_checkpoints/
 

@@ -1,21 +1,13 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import torch.nn.functional as F
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report, confusion_matrix
 import matplotlib.pyplot as plt
-import seaborn as sns
 from utils import load_data, preprocess_data
 import numpy as np
-import os
 
 from emotion_classifier_convlstm import ConvLSTMEmotionClassifier
 from emotion_classifier_cnn import CNNEmotionClassifier
-from emotion_classifier_lstm import LSTMEmotionClassifier
-from emotion_classifier_transformer import TransformerEmotionClassifier
-from emotion_classifier_gru import GRUEmotionClassifier
-from emotion_classifier_rnn import RNNEmotionClassifier
 from emotion_classifier_crnn import CRNNEmotionClassifier
 
 def plot_multiple_models_curves(models_results, num_epochs):
@@ -24,28 +16,40 @@ def plot_multiple_models_curves(models_results, num_epochs):
 
     # Accuracy Plot
     plt.figure(figsize=(14, 6))
+    colors = {
+        "cnn": ("lightcoral", "red"),
+        "convlstm": ("lightblue", "blue"),
+        "crnn": ("lightgreen", "green")
+    }
+
     for model_name, results in models_results.items():
         train_accuracies, val_accuracies, _, _ = results
-        plt.plot(epochs, train_accuracies, label=f'{model_name} Train Accuracy', linestyle='-', marker='x')
-        plt.plot(epochs, val_accuracies, label=f'{model_name} Validation Accuracy', linestyle='-', marker='o')
+        train_color, val_color = colors[model_name]
+        plt.plot(epochs, train_accuracies, label=f'{model_name} Train Accuracy', linestyle='-', color=train_color)
+        plt.plot(epochs, val_accuracies, label=f'{model_name} Validation Accuracy', linestyle='-', color=val_color)
     plt.title('Accuracy Curves for Multiple Models')
     plt.xlabel('Epochs')
     plt.ylabel('Accuracy')
     plt.legend(loc='best')
     plt.grid()
+    # Save accuracy plot
+    plt.savefig('results/accuracy_curves.png', dpi=300)
     plt.show()
 
     # Loss Plot
     plt.figure(figsize=(14, 6))
     for model_name, results in models_results.items():
         _, _, train_losses, val_losses = results
-        plt.plot(epochs, train_losses, label=f'{model_name} Train Loss', linestyle='-', marker='x')
-        plt.plot(epochs, val_losses, label=f'{model_name} Validation Loss', linestyle='-', marker='o')
+        train_color, val_color = colors[model_name]
+        plt.plot(epochs, train_losses, label=f'{model_name} Train Loss', linestyle='-', color=train_color)
+        plt.plot(epochs, val_losses, label=f'{model_name} Validation Loss', linestyle='-', color=val_color)
     plt.title('Loss Curves for Multiple Models')
     plt.xlabel('Epochs')
     plt.ylabel('Loss')
     plt.legend(loc='best')
     plt.grid()
+    # Save loss plot
+    plt.savefig('results/loss_curves.png', dpi=300)
     plt.show()
 
 def train_multiple_models(models, X_train, y_train, X_val, y_val, config):
@@ -147,17 +151,14 @@ def main():
     models = {
         "convlstm": ConvLSTMEmotionClassifier,
         "cnn": CNNEmotionClassifier,
-        "lstm": LSTMEmotionClassifier,
-        "gru": GRUEmotionClassifier,
-        "rnn": RNNEmotionClassifier,
         "crnn": CRNNEmotionClassifier
     }
 
     # 학습 설정
     config = {
         'num_epochs': 120,
-        'batch_size': 32,
-        'learning_rate': 0.001,
+        'batch_size': 64,
+        'learning_rate': 0.0001,
         'device': torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     }
 

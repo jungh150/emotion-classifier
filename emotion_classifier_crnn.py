@@ -16,13 +16,13 @@ class CRNNEmotionClassifier(nn.Module):
 
         # CNN 블록
         self.conv1 = nn.Sequential(
-            nn.Conv1d(features, 128, kernel_size=3, stride=1, padding=1),
+            nn.Conv1d(features, 128, kernel_size=7, stride=1, padding=1),
             nn.ReLU(),
             nn.MaxPool1d(kernel_size=2, stride=2),
             nn.Dropout(0.3)
         )
         self.conv2 = nn.Sequential(
-            nn.Conv1d(128, 256, kernel_size=3, stride=1, padding=1),
+            nn.Conv1d(128, 256, kernel_size=7, stride=1, padding=1),
             nn.ReLU(),
             nn.MaxPool1d(kernel_size=2, stride=2),
             nn.Dropout(0.3)
