@@ -5,11 +5,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix
 import seaborn as sns
 import matplotlib.pyplot as plt
-from emotion_classifier_convlstm import ConvLSTMEmotionClassifier3  # Assuming the model is defined here
+from src.emotion_classifier.model.emotion_classifier_convlstm import ConvLSTMEmotionClassifier  # Assuming the model is defined here
 from utils import load_data, preprocess_data
 import numpy as np
-import os
-import librosa
 
 # Add Gaussian Noise as augmentation
 def add_noise(X, noise_factor=0.19):
@@ -94,7 +92,7 @@ def main():
 
             # 모델 초기화
             input_shape = (X_train_tensor.size(1), X_train_tensor.size(2))  # (features, time_steps) for Conv1D + LSTM
-            model = ConvLSTMEmotionClassifier3(input_shape, num_classes).to(config['device'])
+            model = ConvLSTMEmotionClassifier(input_shape, num_classes).to(config['device'])
 
             # 손실 함수와 옵티마이저 정의
             criterion = nn.CrossEntropyLoss()

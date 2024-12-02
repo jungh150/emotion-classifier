@@ -3,12 +3,12 @@ import torch.nn as nn
 import torch.optim as optim
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
-from utils import load_data, preprocess_data
+from src.emotion_classifier.utils import load_data, preprocess_data
 import numpy as np
 
-from emotion_classifier_convlstm import ConvLSTMEmotionClassifier
-from emotion_classifier_cnn import CNNEmotionClassifier
-from emotion_classifier_crnn import CRNNEmotionClassifier
+from src.emotion_classifier.model.emotion_classifier_convlstm import ConvLSTMEmotionClassifier
+from src.emotion_classifier.model.emotion_classifier_cnn import CNNEmotionClassifier
+from src.emotion_classifier.model.emotion_classifier_crnn import CRNNEmotionClassifier
 
 def plot_multiple_models_curves(models_results, num_epochs):
     """여러 모델의 Accuracy와 Loss를 각각 별도의 그래프에 그리기"""

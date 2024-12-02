@@ -1,22 +1,20 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import torch.nn.functional as F
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
-from utils import load_data, preprocess_data
+from src.emotion_classifier.utils import load_data, preprocess_data
 import numpy as np
 import os
 
-from emotion_classifier_convlstm import ConvLSTMEmotionClassifier
-from emotion_classifier_cnn import CNNEmotionClassifier
-from emotion_classifier_lstm import LSTMEmotionClassifier
-from emotion_classifier_transformer import TransformerEmotionClassifier
-from emotion_classifier_gru import GRUEmotionClassifier
-from emotion_classifier_rnn import RNNEmotionClassifier
-from emotion_classifier_crnn import CRNNEmotionClassifier
+from src.emotion_classifier.model.emotion_classifier_convlstm import ConvLSTMEmotionClassifier
+from src.emotion_classifier.model.emotion_classifier_cnn import CNNEmotionClassifier
+from src.emotion_classifier.model.emotion_classifier_lstm import LSTMEmotionClassifier
+from src.emotion_classifier.model.emotion_classifier_gru import GRUEmotionClassifier
+from src.emotion_classifier.model.emotion_classifier_rnn import RNNEmotionClassifier
+from src.emotion_classifier.model.emotion_classifier_crnn import CRNNEmotionClassifier
 
 def train_model(model, X_train, y_train, X_val, y_val, config):
     # 학습 설정
@@ -148,7 +146,6 @@ def main():
         "convlstm": ConvLSTMEmotionClassifier,
         "cnn": CNNEmotionClassifier,
         "lstm": LSTMEmotionClassifier,
-        "trans": TransformerEmotionClassifier,
         "gru": GRUEmotionClassifier,
         "rnn": RNNEmotionClassifier,
         "crnn": CRNNEmotionClassifier
@@ -165,8 +162,8 @@ def main():
     # 학습 설정
     config = {
         'num_epochs': 120,
-        'batch_size': 32,
-        'learning_rate': 0.001,
+        'batch_size': 64,
+        'learning_rate': 0.0001,
         'device': device
     }
     
