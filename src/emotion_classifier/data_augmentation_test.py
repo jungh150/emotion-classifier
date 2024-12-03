@@ -10,13 +10,13 @@ from utils import load_data, preprocess_data
 import numpy as np
 
 # Add Gaussian Noise as augmentation
-def add_noise(X, noise_factor=0.19):
+def add_noise(X, noise_factor=0.13):
     """Add Gaussian noise to the input data"""
     noise = np.random.normal(loc=0.0, scale=noise_factor, size=X.shape)
     return X + noise
 
 # Shift data (time-shift augmentation)
-def shift_data(X, shift_range=8):
+def shift_data(X, shift_range=5):
     """Shift the data by a random number of steps"""
     shift = np.random.randint(-shift_range, shift_range)
     return np.roll(X, shift, axis=1)
