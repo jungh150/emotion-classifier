@@ -60,7 +60,7 @@ emotion-classifier/
 
 3. **데이터셋**:
    - 공개된 Kaggle 데이터셋을 활용하여 학습합니다:
-     - [CREMA-D 데이터셋](https://www.kaggle.com/datasets/dmitrybabko/speech-emotion-recognition-en)
+     - [CREMA-D 데이터셋](https://www.kaggle.com/datasets/ejlok1/cremad)
      - [RAVDESS 데이터셋](https://www.kaggle.com/datasets/uwrfkaggler/ravdess-emotional-speech-audio)
      - [SAVEE 데이터셋](https://www.kaggle.com/datasets/ejlok1/surrey-audiovisual-expressed-emotion-savee)
      - [TESS 데이터셋](https://www.kaggle.com/datasets/ejlok1/toronto-emotional-speech-set-tess)
@@ -91,7 +91,7 @@ python src/emotion_classifier/test.py
 - **FLAME PyTorch**: [https://github.com/soubhiksanyal/FLAME_PyTorch](https://github.com/soubhiksanyal/FLAME_PyTorch)
 
 - **데이터셋**:
-  - CREMA-D 데이터셋 [CREMA-D 데이터셋](https://www.kaggle.com/datasets/dmitrybabko/speech-emotion-recognition-en)
+  - [CREMA-D 데이터셋](https://www.kaggle.com/datasets/ejlok1/cremad)
   - [RAVDESS 데이터셋](https://www.kaggle.com/datasets/uwrfkaggler/ravdess-emotional-speech-audio)
   - [SAVEE 데이터셋](https://www.kaggle.com/datasets/ejlok1/surrey-audiovisual-expressed-emotion-savee)
   - [TESS 데이터셋](https://www.kaggle.com/datasets/ejlok1/toronto-emotional-speech-set-tess)
