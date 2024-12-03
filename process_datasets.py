@@ -11,6 +11,7 @@ emotion_mapping = {
     "disgust": 5
 }
 
+#데이터셋을 datasets/ 경로 아애레 다운 받았다는 가정 하에 실행합니다
 # 데이터셋 경로 설정
 ravdess_path = "datasets/RAVDESS/"
 tess_path = "datasets/TESS/"
